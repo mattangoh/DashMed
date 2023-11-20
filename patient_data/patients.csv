@@ -1,0 +1,9 @@
+﻿PatientId,FirstName,LastName,Address,Phone,Sex,Birthdate,Age,RelatedPatients,MedicalHistory,Medication
+33764,John,Doe,3214 Dirk Rd,(123) 456-7890,M,1941-01-05,82,Jane Doe,"Type II Diabetes, Mild hypertension",Metformin
+23989,Edward,Johnson,101 Maple Ave,(555) 123-4567,M,1989-01-24,34,Diana Smith,Hypertension,Lisinopril
+30110,Diana,Smith,101 Maple Ave,(555) 234-5678,F,1993-04-21,30,Edward Johnson,Asthma,Ventolin
+40284,Damion,Le,789 Oak St,(555) 345-6789,M,2011-05-25,12,Christina Le,Asthma,Ventolin
+54658,Jane,Doe,3214 Dirk Rd,(123) 456-9807,F,1942-07-19,81,John Doe,"High cholesterol, Osteoarthritis",Metoprolol
+30111,Christina,Le,789 Oak St,(555) 345-5678,F,1985-05-11,38,Damion Le,"Asthma, High cholesterol","Ventolin, Atorvastatin, Lisinopril"
+57180,Meredith,Walker,45578 York Dr,(123) 477-2423,F,1948-03-16,75,N/A,Osteoarthritis,Celecoxib
+97021,Rick,Rodriguez,342 Tuney St,(123) 472-4009,M,1978-02-17,45,N/A,High cholesterol,"Atorvastatin, Metoprolol, Ventolin"

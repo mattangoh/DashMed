@@ -5,6 +5,7 @@ class User:
         self.name = name
         self.age = age
         self.password = password
+        self.role = None
 
     def display(self):
         """Display the user's details."""

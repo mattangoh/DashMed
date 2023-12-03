@@ -1,4 +1,6 @@
 import sqlite3 as sql
+import os
+import pandas as pd
 
 class SQLiteDB:
     

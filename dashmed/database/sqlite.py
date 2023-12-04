@@ -20,6 +20,38 @@ class SQLiteDB:
             self.conn = sql.connect(self.db)
         except sql.Error as e:
             print(e)
+    
+    def initialize_db(self, user):
+        """Initialize the database with default tables and configurations."""
+        self._role_check(user, ['Admin'])
+        self.connect(user)
+        self._create_initial_tables()
+        self.close(user)
+        print("Database initialized.")
+
+    def _create_initial_tables(self):
+        """Create initial tables in the database."""
+        # Example: Creating a sample table. You can add your own table creation logic here.
+        patients = """
+                    CREATE TABLE IF NOT EXISTS patients (
+                    PatientId integer PRIMARY KEY,
+                    FirstName text NOT NULL,
+                    LastName text NOT NULL,
+                    Address text NOT NULL,
+                    Phone text NOT NULL,
+                    Sex text NOT NULL,
+                    Birthdate date NOT NULL,
+                    Age integer NOT NULL,
+                    RelatedPatients text,
+                    MedicalHistory text,
+                    Medication text  
+                    );
+                    """
+        try:
+            c = self.conn.cursor()
+            c.execute(patients)
+        except sql.Error as e:
+            print(e)
            
     def create_table(self, user, create_table_sql):
         """Create a table from the create_table_sql statement."""

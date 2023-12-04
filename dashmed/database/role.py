@@ -47,6 +47,28 @@ class Scribe(User):
         super().display()
         print(f'Role: {self.role}')
 
+
+def create_user():
+    name = input("Enter your name: ")
+    age = int(input("Enter your age: "))
+    password = getpass.getpass("Enter your password: ")  # Secure password input
+
+    role = input("Enter your role (Admin/Scribe/User): ").lower()
+    if role == 'admin':
+        try:
+            return Admin(name, age, password)
+        except ValueError as e:
+            print(e)
+            return None
+    elif role == 'scribe':
+        try:
+            return Scribe(name, age, password)
+        except ValueError as e:
+            print(e)
+            return None
+    else:
+        return User(name, age, password)
+
 # Example usage
 try:
     admin1 = Admin("Jane", 35)

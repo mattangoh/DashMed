@@ -1,6 +1,7 @@
 import sqlite3 as sql
 import os
 import pandas as pd
+from dashmed.database.role import *
 
 class SQLiteDB:
     
@@ -113,3 +114,34 @@ class SQLiteDB:
             df.to_sql(table_name, self.conn, if_exists='replace', index=False)
 
         print(f"Data from {csv_file} added to {table_name} table.")
+
+    def authenticate_user(self, name, password):
+        """Authenticate a user based on username and password."""
+        select_sql = """
+        SELECT id, name, age, role, password FROM users WHERE name = ?;
+        """
+        try:
+            self.connect()
+            c = self.conn.cursor()
+            c.execute(select_sql, (name,))
+            user_data = c.fetchone()
+            
+            print(user_data)
+            
+            if user_data and user_data[4] == password:
+                print(f"Login successful for {user_data[1]}.")
+                
+                if user_data[3] == 'Admin':
+                    return Admin(user_data[1], user_data[2], user_data[4])
+                elif user_data[3] == 'Scribe':
+                    return Scribe(user_data[1], user_data[2], user_data[4])
+                else:
+                    return User(user_data[1], user_data[2], user_data[4])
+            else:
+                print("Login failed. Please check your username and password.")
+                return None
+        except sql.Error as e:
+            print(e)
+            return None
+        finally:
+            self.close()

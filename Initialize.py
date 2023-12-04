@@ -13,7 +13,7 @@ def initialize_database():
         db.initialize_db()
         print(f"Database '{db_path}' initialized.")
         
-        user = Admin('Admin', 0) #check to make sure an administrator is trying to execute table generation.
+        user = Admin('Admin', 0, '123') #check to make sure an administrator is trying to execute table generation.
         
         print("Inserting Toy Data")
         db.connect()
@@ -27,7 +27,10 @@ def initialize_database():
                 db.insert_csv_data(user, csv_file)
                 db.close()
 
+        db.connect()
         db.show_tables(user)
+        db.close()
+        
         print('Complete!')
         
 if __name__ == "__main__":

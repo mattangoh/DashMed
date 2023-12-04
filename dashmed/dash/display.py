@@ -1,5 +1,3 @@
-import dashmed.database
-
 class PatientSummary():
     """ Summary class to retrieve patient data from an input patient ID. """
     

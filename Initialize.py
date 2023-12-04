@@ -25,9 +25,9 @@ def initialize_database():
                 csv_file = os.path.join('patient_data/patient_bp/', filename)
                 db.connect()
                 db.insert_csv_data(user, csv_file)
-                db.show_tables()
                 db.close()
 
+        db.show_tables(user)
         print('Complete!')
         
 if __name__ == "__main__":

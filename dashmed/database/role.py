@@ -1,3 +1,7 @@
+import getpass
+import dashmed.database.sqlite
+import sqlite3 as sql
+
 class User:
     """A class representing a general user."""
     def __init__(self, name, age, password):
@@ -10,6 +14,22 @@ class User:
     def display(self):
         """Display the user's details."""
         print(f'Name: {self.name}\nAge: {self.age}')
+
+    def add_to_database(self, db):
+        """Add user details to the users table in the database."""
+        insert_sql = """
+        INSERT INTO users (name, age, role) VALUES (?, ?, ?);
+        """
+        try:
+            db.connect(self)
+            c = db.conn.cursor()
+            c.execute(insert_sql, (self.name, self.age, self.role))
+            db.conn.commit()
+            print(f"User {self.name} added to the database.")
+        except sql.Error as e:
+            print(e)
+        finally:
+            db.close(self)
 
 class Admin(User):
     """A class representing an Admin user, inheriting from User."""
@@ -47,7 +67,6 @@ class Scribe(User):
         super().display()
         print(f'Role: {self.role}')
 
-
 def create_user():
     name = input("Enter your name: ")
     age = int(input("Enter your age: "))
@@ -68,16 +87,3 @@ def create_user():
             return None
     else:
         return User(name, age, password)
-
-# Example usage
-try:
-    admin1 = Admin("Jane", 35)
-    admin1.display()
-except ValueError as e:
-    print(e)
-
-try:
-    scribe1 = Scribe("John", 30)
-    scribe1.display()
-except ValueError as e:
-    print(e)

@@ -13,20 +13,18 @@ class SQLiteDB:
         if user.role not in allowed_roles:
             raise PermissionError(f"Access denied: {user.role} role does not have permission for this action.")
                 
-    def connect(self, user):
+    def connect(self):
         """Create a database connection to the SQLite database."""
-        self._role_check(user, ['Admin', 'Scribe'])
         try:
             self.conn = sql.connect(self.db)
         except sql.Error as e:
             print(e)
     
-    def initialize_db(self, user):
+    def initialize_db(self):
         """Initialize the database with default tables and configurations."""
-        self._role_check(user, ['Admin'])
-        self.connect(user)
+        self.connect()
         self._create_initial_tables()
-        self.close(user)
+        self.close()
         print("Database initialized.")
 
     def _create_initial_tables(self):
@@ -47,9 +45,19 @@ class SQLiteDB:
                     Medication text  
                     );
                     """
+        users_table = """
+                    CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        name TEXT NOT NULL,
+                        age INTEGER NOT NULL,
+                        role TEXT NOT NULL
+                        password TEXT NOT NULL
+                    );
+                    """
         try:
             c = self.conn.cursor()
             c.execute(patients)
+            c.execute(users_table)
         except sql.Error as e:
             print(e)
            

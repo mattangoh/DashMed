@@ -126,8 +126,6 @@ class SQLiteDB:
             c.execute(select_sql, (name,))
             user_data = c.fetchone()
             
-            print(user_data)
-            
             if user_data and user_data[4] == password:
                 print(f"Login successful for {user_data[1]}.")
                 

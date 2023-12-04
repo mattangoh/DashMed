@@ -1,5 +1,7 @@
 from dashmed.database.sqlite import SQLiteDB
 from dashmed.database.role import *
+from dashmed.dash.display import *
+from dashmed.dash.bpgraph import *
 
 print('Welcome to Dashmed.')
 
@@ -23,14 +25,29 @@ while True:
                     choice = input("Enter your choice: ")
 
                     if choice == '1':
-                        pass
+                        db = SQLiteDB("DashMed.db")
+                        pid = input('Input a patient ID:')
+                        dashboard = Dashboard(PatientSummary(db, pid), user)
+                        dashboard.display_dash()
                     
                     elif choice == '2':
-                        pass
+                        db = SQLiteDB("DashMed.db")
+                        pid = input('Input a patient ID:')
+                        bp = BPSummary(db, pid, user)
+                        bp.plot()
                     
                     elif choice == '3':
-                        pass
-                    
+                        path_to_csv = input('Enter the Path to your CSV file: ')
+
+                        try:
+                            db = SQLiteDB('Dashmed.db')
+                            db.connect()
+                            db.insert_csv_data(user, path_to_csv)
+                        except Exception as e:
+                            print(f"An error occurred: {e}")
+                        finally:
+                            db.close()
+                            
                     elif choice == '4':
                         print("Logging Out")
                         break

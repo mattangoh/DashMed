@@ -1,3 +1,5 @@
+import dashmed.database
+
 class PatientSummary():
     """ Summary class to retrieve patient data from an input patient ID. """
     
@@ -48,29 +50,35 @@ class PatientSummary():
 
 class Dashboard:
 
-    def __init__(self, summary):
+    def __init__(self, summary, user):
         """ Initialize with a Summary object """
         self.summary = summary
+        self.user = user
 
     def display_dash(self):
         """ Display the patient data in a simple dashboard format. """
-        patient_data = self.summary.getdata()
-        
-        PatientId, FirstName, LastName, Address, Phone, Sex, Birthdate, Age, RelatedPatients, MedicalHistory, Medication = patient_data
+        if self.user.role != 'Admin': # Will only display if the user has an admin role
+            print("Access denied.")
+            return
 
-        # Simple dashboard display
-        print("Patient Dashboard")
-        print("-------------------------------------")
-        print(f"Patient ID: {PatientId}")
-        print(f"First name: {FirstName}")
-        print(f"Last name: {LastName}")
-        print(f"Address: {Address}")
-        print(f"Phone: {Phone}")
-        print(f"Sex: {Sex}")
-        print(f"Brithdate: {Birthdate}")
-        print(f"Age: {Age}")
-        print(f"Related patients: {RelatedPatients}")
-        print(f"Medical history: {MedicalHistory}")
-        print(f"Medication: {Medication}")
-        print("-------------------------------------")
+        else:
+            patient_data = self.summary.getdata()
+            
+            PatientId, FirstName, LastName, Address, Phone, Sex, Birthdate, Age, RelatedPatients, MedicalHistory, Medication = patient_data
+
+            # Simple dashboard display
+            print("Patient Dashboard")
+            print("-------------------------------------")
+            print(f"Patient ID: {PatientId}")
+            print(f"First name: {FirstName}")
+            print(f"Last name: {LastName}")
+            print(f"Address: {Address}")
+            print(f"Phone: {Phone}")
+            print(f"Sex: {Sex}")
+            print(f"Brithdate: {Birthdate}")
+            print(f"Age: {Age}")
+            print(f"Related patients: {RelatedPatients}")
+            print(f"Medical history: {MedicalHistory}")
+            print(f"Medication: {Medication}")
+            print("-------------------------------------")
 

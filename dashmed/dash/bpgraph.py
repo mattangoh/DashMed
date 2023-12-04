@@ -4,10 +4,11 @@ from datetime import datetime
 
 class BPSummary:
     """ BPSummary class to retrieve blood pressure data from database and plot graph. """
-    def __init__(self, db, PatientId):
+    def __init__(self, db, PatientId, user):
         self.db = db
         self.PatientId = PatientId
         self.table = f'"{PatientId}_BP"'
+        self.user = user
 
     def table_exists(self):
         """ Check if the BP table for the patient exists in the database. """
@@ -54,19 +55,25 @@ class BPSummary:
     def plot(self):
         """ Plot the BP data for the patient. """
         bp_data = self.get_bp_data()
-        if bp_data is not None:
-            # Convert the Date column to datetime objects for plotting
-            bp_data['Date'] = pd.to_datetime(bp_data['Date'])
-            
-            plt.figure(figsize=(14, 7))
-            plt.plot(bp_data['Date'], bp_data['Resting Heart Rate'], label='Resting Heart Rate')
-            plt.plot(bp_data['Date'], bp_data['Systolic Pressure'], label='Systolic Pressure')
-            plt.plot(bp_data['Date'], bp_data['Diastolic Pressure'], label='Diastolic Pressure')
 
-            plt.title(f'Blood Pressure Summary for Patient {self.PatientId}')
-            plt.xlabel('Date')
-            plt.ylabel('Values')
-            plt.legend()
-            plt.grid(True)
-            plt.tight_layout()
-            plt.show()
+        if self.user.role != 'Admin': # Will only shosw the bp graph if the user has an Admin role
+            print('Access denied.')
+            return
+        
+        else:
+            if bp_data is not None:
+            # Convert the Date column to datetime objects for plotting
+                bp_data['Date'] = pd.to_datetime(bp_data['Date'])
+                
+                plt.figure(figsize=(14, 7))
+                plt.plot(bp_data['Date'], bp_data['Resting Heart Rate'], label='Resting Heart Rate')
+                plt.plot(bp_data['Date'], bp_data['Systolic Pressure'], label='Systolic Pressure')
+                plt.plot(bp_data['Date'], bp_data['Diastolic Pressure'], label='Diastolic Pressure')
+
+                plt.title(f'Blood Pressure Summary for Patient {self.PatientId}')
+                plt.xlabel('Date')
+                plt.ylabel('Values')
+                plt.legend()
+                plt.grid(True)
+                plt.tight_layout()
+                plt.show()

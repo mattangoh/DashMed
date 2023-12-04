@@ -18,12 +18,12 @@ class User:
     def add_to_database(self, db):
         """Add user details to the users table in the database."""
         insert_sql = """
-        INSERT INTO users (name, age, role) VALUES (?, ?, ?);
+        INSERT INTO users (name, age, role, password) VALUES (?, ?, ?, ?);
         """
         try:
             db.connect(self)
             c = db.conn.cursor()
-            c.execute(insert_sql, (self.name, self.age, self.role))
+            c.execute(insert_sql, (self.name, self.age, self.role, self.password))
             db.conn.commit()
             print(f"User {self.name} added to the database.")
         except sql.Error as e:

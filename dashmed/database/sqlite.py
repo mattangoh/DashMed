@@ -50,7 +50,7 @@ class SQLiteDB:
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
                         age INTEGER NOT NULL,
-                        role TEXT NOT NULL
+                        role TEXT NOT NULL,
                         password TEXT NOT NULL
                     );
                     """
@@ -95,9 +95,8 @@ class SQLiteDB:
         except sql.Error as e:
             print(e)
     
-    def close(self, user):
+    def close(self):
         """Close the database connection."""
-        self._role_check(user, ['Admin', 'Scribe'])
         if self.conn:
             self.conn.close()
             

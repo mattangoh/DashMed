@@ -5,14 +5,14 @@ A Python package that imports patient data from .csv files into a SQLite databas
 ## Table of Contents 📜
 ***
 
-1. [Introduction to DashMed](#1-introduction-to-dashmed)
-    1.1. [Repository Components](#11-repository-components)
-2. [Subpackages & Modules](#2-subpackages--modules)
-    2.1. [The `sqlite` Module](#21-the-sqlite-module-)
-    2.2. [The `role` Module](#22-the-role-module-)
-    2.3. [The `display` Module](#23-the-display-module-)
-    2.4. [The `bpgraph` Module](#24-the-bpgraph-module-)
-3. [How to Use DashMed](#3-user-guide)
+1. [Introduction to DashMed](#1-introduction-to-dashmed)<br>
+    1.1. [Repository Components](#11-repository-components)<br>
+2. [Subpackages & Modules](#2-subpackages--modules)<br>
+    2.1. [The `sqlite` Module](#21-the-sqlite-module-)<br>
+    2.2. [The `role` Module](#22-the-role-module-)<br>
+    2.3. [The `display` Module](#23-the-display-module-)<br>
+    2.4. [The `bpgraph` Module](#24-the-bpgraph-module-)<br>
+3. [How to Use DashMed](#3-user-guide)<br>
 ***
 # 1. Introduction to DashMed
 

@@ -49,7 +49,7 @@ On the other hand, **`dash`** is focused on retrieving data from the database in
 
 #### 2.1 The `sqlite` Module 🗄️
 
-This module includes the import of `sqlite3`, `os`, and `pandas`, and also references `dashmed.database.role`. The `SQLiteDB` class is used and 
+This module includes the import of `sqlite3`, `os`, and `pandas`, and also references `dashmed.database.role`. 
 
 **SQLiteDB Class**:
    - This class encapsulates all the necessary functions for database initialization and manipulation.
@@ -157,8 +157,6 @@ This module contains 2 classes to retrieve patient data from the database and pr
 #### 2.4 The `bpgraph` Module 📈
 This module includes the import of `matplotlib.pyplot`, `pandas` and `datetime`. The `BPSummary` class is used here to retrieve blood pressure data from the database and create a line plot.
 
-### Classes
-
 **BPSummary Class**:
    - A class designed for blood pressure data management and visualization.
 ###### BPSummary Functions
@@ -254,4 +252,4 @@ This is an example of an Admin user, but what about for the Scribe user? Say we 
 Scribe users can add new data, though! (Option 3).
 
 ### Using `HowToGuide.ipynb`
-You can run DashMed in the Jupyter Notebook `HowToGuide.ipynb` as well and run the cells to achieve the same process.
+You can run DashMed in the Jupyter Notebook `HowToGuide.ipynb` as well and run the cells to achieve the same process. This file provides a step-by-step guide to demonstrate how to use DashMed.

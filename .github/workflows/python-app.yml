@@ -25,4 +25,4 @@ jobs:
         pip install -r requirements.txt
     
     - name: Test with unittest
-      run: python -m unittest test_files/test_database_role.py
+      run: python -m unittest test_files/test_suite.py

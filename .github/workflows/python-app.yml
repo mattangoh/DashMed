@@ -24,5 +24,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Test with unittest
-      run: python -m unittest test_files/test_suite.py
+    - name: Run tests
+      run: |
+        python test_files/test_suite.py

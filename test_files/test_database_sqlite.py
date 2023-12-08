@@ -18,12 +18,12 @@ class TestSQLiteDB(unittest.TestCase):
         # Using the mock test.db as we are mocking a connection
         self.sqlite = SQLiteDB('test.db')
 
-    @patch('sqlite.sql.connect')
+    @patch('sqlite3.connect')
     def test_connect(self, mock_connect):
         self.sqlite.connect()
         mock_connect.assert_called_with('test.db') # Make sure its connecting to the right db
 
-    @patch('sqlite.sql.connect')
+    @patch('sqlite3.connect')
     def test_initialize_db(self, mock_connect):
         mock_connection = MagicMock()
         mock_connect.return_value = mock_connection
@@ -35,61 +35,77 @@ class TestSQLiteDB(unittest.TestCase):
         self.assertTrue(mock_cursor.execute.called)
         mock_connection.close.assert_called_once()
 
-    @patch('sqlite.sql.connect')
-    def test_create_table(self, mock_connect):
+    @patch('builtins.input', return_value=Admin.admin_password) # Automate the admin password
+    @patch('sqlite3.connect')
+    def test_create_table(self, mock_connect, mock_input):
+        admin_user = Admin('admin_name', 30, 'admin_password')
+
         mock_connection = MagicMock()
         mock_connect.return_value = mock_connection
-        mock_cursor = mock_connection.cursor.return_value
+        mock_cursor = MagicMock()
+        mock_connection.cursor.return_value = mock_cursor
 
-        # Test with Admin user
-        admin_user = Admin('admin_name', 'admin_password')
+        self.sqlite.connect()
+
         create_table_sql = "CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY AUTOINCREMENT)"
         self.sqlite.create_table(admin_user, create_table_sql)
 
         mock_cursor.execute.assert_called_with(create_table_sql)
 
-    @patch('sqlite.sql.connect')
-    def test_delete_table(self, mock_connect):
+    @patch('builtins.input', return_value=Admin.admin_password)
+    @patch('sqlite3.connect')
+    def test_delete_table(self, mock_connect, mock_input):
+        admin_user = Admin('admin_name', 30, 'admin_password')
+        
         mock_connection = MagicMock()
         mock_connect.return_value = mock_connection
-        mock_cursor = mock_connection.cursor.return_value
-        # Test with Admin user
-        admin_user = Admin('admin_name', 'admin_password')
+        mock_cursor = MagicMock()
+        mock_connection.cursor.return_value = mock_cursor
+        
+        self.sqlite.connect()
+
         table_name = "test"
         self.sqlite.delete_table(admin_user, table_name)
 
         mock_cursor.execute.assert_called_with(f"DROP TABLE IF EXISTS {table_name}")
+ 
+    @patch('builtins.input', return_value=Admin.admin_password)
+    @patch('sqlite3.connect')
+    def test_show_tables(self, mock_connect, mock_input):
+        admin_user = Admin('admin_name', 30, 'admin_password')
 
-    @patch('sqlite.sql.connect')
-    def test_show_tables(self, mock_connect):
         mock_connection = MagicMock()
         mock_connect.return_value = mock_connection
-        mock_cursor = mock_connection.cursor.return_value
+        mock_cursor = MagicMock()
+        mock_connection.cursor.return_value = mock_cursor
         mock_cursor.fetchall.return_value = [('test1',), ('test2',)]
 
-        admin_user = Admin('admin_name', 'admin_password')
+        self.sqlite.connect()
+
         self.sqlite.show_tables(admin_user)
 
         mock_cursor.execute.assert_called_with("SELECT name FROM sqlite_master WHERE type='table';")
 
-    @patch('sqlite.pd.read_csv')
-    @patch('sqlite.sql.connect')
-    def test_insert_csv_data(self, mock_connect, mock_read_csv):
+    @patch('builtins.input', return_value=Admin.admin_password)
+    @patch('pandas.read_csv')
+    @patch('sqlite3.connect')
+    def test_insert_csv_data(self, mock_connect, mock_read_csv, mock_input):
         mock_connection = MagicMock()
         mock_connect.return_value = mock_connection
         mock_cursor = mock_connection.cursor.return_value
         mock_df = MagicMock()
         mock_read_csv.return_value = mock_df
 
-        admin_user = Admin('admin_name', 'admin_password')
+        admin_user = Admin('admin_name', 30, 'admin_password')
         csv_file = 'patients.csv'
         self.sqlite.insert_csv_data(admin_user, csv_file)
 
         # Check if the correct methods are called on the mock DataFrame
         mock_df.to_sql.assert_called()
 
-    @patch('sqlite.sql.connect')
-    def test_authenticate_user(self, mock_connect):
+    @patch('builtins.input', return_value=Admin.admin_password)
+    @patch('sqlite3.connect')
+    def test_authenticate_user(self, mock_connect, mock_input):
         mock_connection = MagicMock()
         mock_connect.return_value = mock_connection
         mock_cursor = mock_connection.cursor.return_value

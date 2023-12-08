@@ -78,6 +78,7 @@ class TestSQLiteDB(unittest.TestCase):
         mock_connect.return_value = mock_connection
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value = mock_cursor
+        # Assign mock tables to fetch
         mock_cursor.fetchall.return_value = [('test1',), ('test2',)]
 
         self.sqlite.connect()
@@ -92,7 +93,6 @@ class TestSQLiteDB(unittest.TestCase):
     def test_insert_csv_data(self, mock_connect, mock_read_csv, mock_input):
         mock_connection = MagicMock()
         mock_connect.return_value = mock_connection
-        mock_cursor = mock_connection.cursor.return_value
         mock_df = MagicMock()
         mock_read_csv.return_value = mock_df
 

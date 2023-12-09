@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
+import sqlite3 as sql
 
 class BPSummary:
     """ BPSummary class to retrieve blood pressure data from database and plot graph. """

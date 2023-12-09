@@ -66,6 +66,7 @@ class TestBPSummary(unittest.TestCase):
     def tearDown(self):
         self.mock_db.reset_mock()
         self.mock_user.reset_mock()
+        self.PatientId = None
         self.bpsum = None
 
 if __name__ == '__main__':

@@ -5,7 +5,6 @@ A Python package that imports patient data from .csv files into a SQLite databas
 ![DashMed Actions](https://github.com/mattangoh/DashMed/actions/workflows/python-app.yml/badge.svg)
 
 ## Table of Contents 📜
-***
 
 1. [Introduction to DashMed](#1-introduction-to-dashmed)<br>
     1.1. [Repository Components](#11-repository-components)<br>

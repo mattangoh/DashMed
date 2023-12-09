@@ -56,7 +56,7 @@ class BPSummary:
         """ Plot the BP data for the patient. """
         bp_data = self.get_bp_data()
 
-        if self.user.role != 'Admin': # Will only shosw the bp graph if the user has an Admin role
+        if self.user.role != 'Admin': # Will only show the bp graph if the user has an Admin role
             print('Access denied.')
             return
         

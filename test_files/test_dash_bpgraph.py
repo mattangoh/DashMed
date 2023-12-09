@@ -36,13 +36,17 @@ class TestBPSummary(unittest.TestCase):
         self.assertIsNotNone(bp_data)
         self.assertEqual(len(bp_data), 2) # Ensure that we are retrieving the 2 tuples
 
+        # Check DataFrame structure (this relies on the current knowledge of the expected .csv of the blood pressure data)
+        expected_columns = ['Date', 'Resting Heart Rate', 'Systolic Pressure', 'Diastolic Pressure']
+        self.assertListEqual(list(bp_data.columns), expected_columns)
+
         # Test when no data is available
         self.mock_db.conn.cursor.return_value.fetchall.return_value = []
         no_data = self.bpsum.get_bp_data()
         self.assertTrue(no_data.empty)
 
     @patch('matplotlib.pyplot.show')
-    def test_plot(self, mock_plot):
+    def test_plot(self, mock_plot, mock_print):
         # Have get_bp_data return a dataframe
         self.bpsum.get_bp_data = MagicMock(return_value=pd.DataFrame([('2001-01-01', 60, 120, 80), ('2023-01-02', 69, 130, 85)], columns=['Date', 'Resting Heart Rate', 'Systolic Pressure', 'Diastolic Pressure']))
 
@@ -57,6 +61,12 @@ class TestBPSummary(unittest.TestCase):
         self.mock_user.role = 'Scribe'
         self.bpsum.plot()
         mock_plot.assert_not_called()
+        mock_print.assert_called_with('Access denied.') # Make sure proper message is printed
+
+    def tearDown(self):
+        self.mock_db.reset_mock()
+        self.mock_user.reset_mock()
+        self.bpsum = None
 
 if __name__ == '__main__':
     unittest.main()

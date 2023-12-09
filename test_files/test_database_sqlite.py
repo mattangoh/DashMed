@@ -115,6 +115,9 @@ class TestSQLiteDB(unittest.TestCase):
 
         self.assertIsInstance(user, Admin)
         mock_cursor.execute.assert_called()
+
+    def tearDown(self):
+        self.sqlite = None
    
 if __name__ == '__main__':
     unittest.main()

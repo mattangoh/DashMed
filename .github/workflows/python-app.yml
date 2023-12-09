@@ -2,9 +2,12 @@ name: Python application test
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
+      - shay_testcase
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:

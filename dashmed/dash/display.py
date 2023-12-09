@@ -1,3 +1,5 @@
+import sqlite3 as sql
+
 class PatientSummary():
     """ Summary class to retrieve patient data from an input patient ID. """
     
@@ -49,7 +51,7 @@ class PatientSummary():
 class Dashboard:
 
     def __init__(self, summary, user):
-        """ Initialize with a Summary object """
+        """ Initialize with a PatientSummary object """
         self.summary = summary
         self.user = user
 

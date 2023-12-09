@@ -253,3 +253,5 @@ Scribe users can add new data, though! (Option 3).
 
 ### Using `HowToGuide.ipynb`
 You can run DashMed in the Jupyter Notebook `HowToGuide.ipynb` as well and run the cells to achieve the same process. This file provides a step-by-step guide to demonstrate how to use DashMed.
+
+![DashMed Actions](https://github.com/mattangoh/DashMed/actions/workflows/python-app.yml/badge.svg)

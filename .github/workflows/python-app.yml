@@ -5,6 +5,7 @@ on:
     branches: 
       - main
       - shay_testcase
+      - matt_testcase
   pull_request:
     branches:
       - main

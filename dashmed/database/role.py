@@ -29,6 +29,7 @@ class User:
             print(f"User {self.name} added to the database.")
         except sql.Error as e:
             print(e)
+            db.conn.rollback()
         finally:
             db.close()
 

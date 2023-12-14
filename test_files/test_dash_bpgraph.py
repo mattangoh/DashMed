@@ -24,6 +24,10 @@ class TestBPSummary(unittest.TestCase):
         self.mock_db.conn.cursor.return_value.fetchone.return_value = True
         self.assertTrue(self.bpsum.table_exists())
 
+    def test_table_exists_sql_error(self):
+        self.mock_db.connect.side_effect = sql.Error("SQL Error")
+        self.assertFalse(self.bpsum.table_exists())
+
     def test_get_bp_data(self):
         # Test fetching BP data
         self.mock_db.connect.return_value = None
@@ -45,6 +49,7 @@ class TestBPSummary(unittest.TestCase):
         no_data = self.bpsum.get_bp_data()
         self.assertTrue(no_data.empty)
 
+    @patch('builtins.print')
     @patch('matplotlib.pyplot.show')
     def test_plot(self, mock_plot, mock_print):
         # Have get_bp_data return a dataframe

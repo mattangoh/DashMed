@@ -1,5 +1,11 @@
 import sqlite3 as sql
 
+class DatabaseError(Exception): # User-defined function
+    """Raised when a database operation fails."""
+    def __init__(self, message):
+        self.message = message
+        super().__init__(message)
+
 class PatientSummary():
     """ Summary class to retrieve patient data from an input patient ID. """
     
@@ -43,7 +49,7 @@ class PatientSummary():
             return patient_data
         
         except sql.Error as e:
-            print(e)
+            raise DatabaseError(f'There was error with the database: {e}')
 
         finally:
             self.db.close()

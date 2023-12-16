@@ -2,6 +2,8 @@
 ***
 A Python package that imports patient data from .csv files into a SQLite database, creates a dashboard displaying patient data with a graph of blood pressure over time, and manages user roles with varying permissions for data access and modification.
 
+![Link to Pypi Package:](https://pypi.org/project/DashMed/)
+
 ![DashMed Actions](https://github.com/mattangoh/DashMed/actions/workflows/python-app.yml/badge.svg)
 
 ## Table of Contents 📜

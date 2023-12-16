@@ -1,0 +1,2 @@
+﻿PatientId,FirstName,LastName,Address,Phone,Sex,Birthdate,Age,RelatedPatients,MedicalHistory,Medication
+12345,Test,Person,5555 Amazing Rd,(123) 456-7890,M,1941-01-05,82,None,"Type I Diabetes, Severe hypertension",Metformin
